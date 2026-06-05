@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTrack.Api", "SalesTrack.Api\SalesTrack.Api.csproj", "{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesTrack.Web", "SalesTrack.Web\SalesTrack.Web.csproj", "{35E4F546-D5AF-4746-8721-41E7211FEF76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D92F6EF7-23CF-4903-A877-5392DAFA7BF7}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{35E4F546-D5AF-4746-8721-41E7211FEF76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E4F546-D5AF-4746-8721-41E7211FEF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E4F546-D5AF-4746-8721-41E7211FEF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E4F546-D5AF-4746-8721-41E7211FEF76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{35E4F546-D5AF-4746-8721-41E7211FEF76}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal
