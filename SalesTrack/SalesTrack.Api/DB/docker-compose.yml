@@ -1,0 +1,16 @@
+services:
+  salestrack-db:
+    image: postgres:16
+    platform: linux/arm64
+    container_name: salestrack-postgres
+    environment:
+      POSTGRES_DB: salestrack-db
+      POSTGRES_USER: salestrack
+      POSTGRES_PASSWORD: salestrack
+    ports:
+      - "5432:5432"
+    volumes:
+      - salestrack-data:/var/lib/postgresql/data
+
+volumes:
+  salestrack-data:
