@@ -18,51 +18,51 @@ public class AuthenticationController : ControllerBase
         _authenticationService = authenticationService;
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [DisplayName("Login")]
-    public async Task<IActionResult> Login([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> Login([FromBody] ApplicationUserLoginInputModel model)
     {
         var response = await _authenticationService.LoginAsync(model);
-        return Ok(response);
+        return response ? Ok(response) : BadRequest();
     }
 
-    [HttpPost]
+    [HttpPost("register")]
     [DisplayName("Register")]
-    public async Task<IActionResult> Register([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> Register([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.RegisterAsync(model);
-        return Ok(response);
+        return response ? Ok(response) : StatusCode(500);
     }
 
-    [HttpPost]
+    [HttpPost("change-password")]
     [DisplayName("ChangePassword")]
-    public async Task<IActionResult> ChangePassword([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> ChangePassword([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.ChangePasswordAsync(model);
-        return Ok(response);
+        return response ? Ok(response) : StatusCode(500);
     }
 
-    [HttpPost]
+    [HttpPost("refresh-token")]
     [DisplayName("RefreshToken")]
-    public async Task<IActionResult> RefreshToken([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> RefreshToken([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.RefreshTokenAsync(model);
-        return Ok(response);
+        return response ? Ok(response) : StatusCode(500);
     }
 
-    [HttpPost]
+    [HttpPost("forgot-password")]
     [DisplayName("ForgotPassword")]
-    public async Task<IActionResult> ForgotPassword([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> ForgotPassword([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.ForgotPasswordAsyn(model);
-        return Ok(response);
+        return response ? Ok(response) : StatusCode(500);
     }
 
-    [HttpPost]
+    [HttpPost("reset-password")]
     [DisplayName("ResetPassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserInputModel model)
+    public async Task<IActionResult> ResetPassword([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.ResetPasswordAsync(model);
-        return Ok(response);
+        return response ? Ok(response) : StatusCode(500);
     }
 }

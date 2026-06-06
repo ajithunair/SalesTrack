@@ -3,7 +3,7 @@ using SalesTrack.Model.Enums;
 
 namespace SalesTrack.Model.InputModels;
 
-public class ApplicationUserInputModel
+public class ApplicationUserRegisterInputModel
 {
     [Required]
     public string FirstName { get; set; }
