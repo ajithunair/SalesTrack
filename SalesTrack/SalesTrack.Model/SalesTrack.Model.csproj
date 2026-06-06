@@ -7,7 +7,10 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SalesTrack.Utility\SalesTrack.Utility.csproj" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.27" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\SalesTrack.Utility\SalesTrack.Utility.csproj" />
     </ItemGroup>
 
 </Project>
