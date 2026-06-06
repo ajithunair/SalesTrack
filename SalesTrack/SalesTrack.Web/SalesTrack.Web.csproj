@@ -10,4 +10,8 @@
       <PackageReference Include="MudBlazor" Version="9.5.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\SalesTrack.Model\SalesTrack.Model.csproj" />
+    </ItemGroup>
+
 </Project>

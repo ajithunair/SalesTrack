@@ -23,7 +23,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromBody] ApplicationUserLoginInputModel model)
     {
         var response = await _authenticationService.LoginAsync(model);
-        return response.Success ? Ok(response) : BadRequest(response);
+        return response.Success ? Ok() : BadRequest(response);
     }
 
     [HttpPost("register")]
@@ -31,7 +31,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Register([FromBody] ApplicationUserRegisterInputModel model)
     {
         var response = await _authenticationService.RegisterAsync(model);
-        return response ? Ok(response) : StatusCode(500);
+        return response.Success ? Ok() : BadRequest(response);
     }
 
     [HttpPost("change-password")]

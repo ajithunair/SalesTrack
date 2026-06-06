@@ -44,7 +44,7 @@ public class AuthenticationService : IAuthenticationService
         };
     }
 
-    public async Task<bool> RegisterAsync(ApplicationUserRegisterInputModel model)
+    public async Task<ResponseModel<bool>> RegisterAsync(ApplicationUserRegisterInputModel model)
     {
         ArgumentNullException.ThrowIfNull(model.Email);
         ArgumentNullException.ThrowIfNull(model.Password);
@@ -55,12 +55,36 @@ public class AuthenticationService : IAuthenticationService
             UserName =  model.Email,
             FirstName =  model.FirstName,   
             LastName =  model.LastName,
-            BirthDate = model.BirthDate,
+            BirthDate = NormalizeBirthDate(model.BirthDate),
             Gender = model.Gender,
             RegistrationDate = DateTime.UtcNow
         };
         var result = await _userManager.CreateAsync(user, model.Password);
-        return result.Succeeded ? true : throw new Exception("Unable to create user, Errors: " + result.Errors);
+        if (result.Succeeded)
+        {
+            return new ResponseModel<bool>
+            {
+                Success = true,
+                Message = "Successfully registered.",
+                Data = result.Succeeded
+            };
+        }
+        string errorMessage = result.Errors.Any()
+            ? string.Join("; ", result.Errors.Select(e => e.Code))
+            : "Unable to register user due to unknown errors.";
+        return new ResponseModel<bool>
+        {
+            Success = false,
+            Message = errorMessage,
+            Data = false
+        };
+    }
+
+    private static DateTime? NormalizeBirthDate(DateTime? birthDate)
+    {
+        return birthDate.HasValue
+            ? DateTime.SpecifyKind(birthDate.Value.Date, DateTimeKind.Utc)
+            : null;
     }
 
     public Task<bool> ForgotPasswordAsyn(ApplicationUserRegisterInputModel model)

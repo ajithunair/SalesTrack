@@ -1,0 +1,67 @@
+@page "/identity/login"
+
+@using SalesTrack.Model.ApplicationModels
+@using SalesTrack.Model.InputModels
+@using SalesTrack.Web.Validator
+
+@inject HttpClient http
+@inject NavigationManager navManager
+@inject IJSRuntime jsRuntime
+
+<MudPaper Style="position:relative;" Class="pa-4" Outlined="false" Square="false" Elevation="0">
+    <MudText Typo="Typo.h3">Login</MudText>
+    <MudGrid>
+        <MudItem xs="12" lg="7">
+            <MudPaper Class="pa-4">
+                <MudForm @ref="form" @bind-IsValid="@success" @bind-Errors="@errors" Model="@model" Disabled="@loading">
+                    <MudTextField T="string" Label="Email" @bind-Value="model.Email" Validation="@(new EmailOnlyAttribute() {ErrorMessage = "Email format is not correct"})" Required="true" RequiredError="Emai is required" Class="mt-4" />
+                    <MudTextField T="string" Label="Password" @bind-Value="model.Password" InputType="InputType.Password" Validation="@(new PasswordAttribute(){ErrorMessage = "Password must contain atleast 8 characters, one uppercase letter, one number and one symbol"} )" Required="true" RequiredError="Password-required" Class="mt-4" />
+                    <div class="d-flex align-center justify-space-between mt-4">
+                        <MudSpacer />
+                        <MudButton Variant="Variant.Outlined" Color="Color.Primary" DropShadow="false" OnClick="@(()=>{form.ResetAsync(); form.ResetValidationAsync();})" Class="mx-2">Reset</MudButton>
+                        <MudButton Variant="Variant.Filled" Color="Color.Primary" Disabled="@(!success)" Class="ml-auto" OnClick="@(async () => await HandleValidSubmit())">Login</MudButton>
+                    </div>
+                </MudForm>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12" lg="5">
+            <MudPaper Class="pa-4 mud-height-full">
+                <MudText Typo="Typo.subtitle2">Errors (@errors.Length):</MudText>
+                @foreach (var error in errors)
+                {
+                    <MudText Color="@Color.Error">@error</MudText>
+                }
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+    <MudOverlay Visible="loading" LightBackground="true" Absolute="true">
+        <MudProgressCircular Color="Color.Secondary" Indeterminate="true" />
+    </MudOverlay>
+</MudPaper>
+@code {
+    bool success;
+    string[] errors = { };
+    MudForm form = new();
+    ApplicationUserLoginInputModel model = new ApplicationUserLoginInputModel { Email = "", Password = "" };
+    bool loading = false;
+    
+    private async Task HandleValidSubmit()
+    {
+        ChangeLoadingState();
+        var response = await http.PostAsJsonAsync("Identity/Authentication/login", model);
+        ChangeLoadingState();
+        if (response.IsSuccessStatusCode)
+            navManager.NavigateTo("/Identity/user-profile");
+        else
+        {
+            var errorResponse = await response.Content.ReadFromJsonAsync<ResponseModel<bool>>();
+            errors = new string[] { errorResponse.Message };
+        }
+    }
+    
+    private void ChangeLoadingState()
+    {
+        loading = !loading;
+    }
+
+}

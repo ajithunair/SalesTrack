@@ -10,7 +10,7 @@ public class ApplicationUserRegisterInputModel
     [Required]
     public string LastName { get; set; }
     public Gender Gender { get; set; }
-    public DateTime BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
     public string? ImageName { get; set; }
     [Required]
     [EmailAddress]
