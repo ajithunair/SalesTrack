@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using SalesTrack.Model.ApplicationModels;
 using SalesTrack.Model.IdentityModels;
 using SalesTrack.Model.InputModels;
 using SalesTrack.Service.IService;
@@ -14,10 +15,33 @@ public class AuthenticationService : IAuthenticationService
         _userManager = userManager;
         _signInManager = signInManager;
     }
-    public async Task<bool> LoginAsync(ApplicationUserLoginInputModel model)
+    public async Task<ResponseModel<bool>> LoginAsync(ApplicationUserLoginInputModel model)
     {
         var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-        return result.Succeeded ? true : throw new Exception("Unable to create user, Errors: " + result.ToString());
+        if (result.Succeeded)
+        {
+            return new ResponseModel<bool>
+            {
+                Success = true,
+                Message = "Successfully logged in.",
+                Data = result.Succeeded
+            };
+        }
+
+        string errorMessage = "Invalid login attempt";
+        if (result.IsLockedOut)
+            errorMessage="User account locked out.";
+        else if (result.IsNotAllowed)
+            errorMessage="User not allowed to login.";
+        else if (result.RequiresTwoFactor)
+            errorMessage="Two-factor authentication is required.";
+                
+        return new ResponseModel<bool>
+        {
+            Success = false,
+            Message = errorMessage,
+            Data = false
+        };
     }
 
     public async Task<bool> RegisterAsync(ApplicationUserRegisterInputModel model)

@@ -23,7 +23,7 @@ public class AuthenticationController : ControllerBase
     public async Task<IActionResult> Login([FromBody] ApplicationUserLoginInputModel model)
     {
         var response = await _authenticationService.LoginAsync(model);
-        return response ? Ok(response) : BadRequest();
+        return response.Success ? Ok(response) : BadRequest(response);
     }
 
     [HttpPost("register")]
