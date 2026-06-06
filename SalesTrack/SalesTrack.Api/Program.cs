@@ -1,6 +1,6 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SalesTrack.Api.Areas.Identity.Data;
+using SalesTrack.DataAccess;
+
 namespace SalesTrack.Api;
 
 public class Program
@@ -8,13 +8,14 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
-        var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+        var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ??
+                               throw new InvalidOperationException(
+                                   "Connection string 'ApplicationDbContextConnection' not found.");
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        {
-            options.UseNpgsql(connectionString);
-        });
-        
+        builder.Services.AddDbContext<ApplicationDbContext>(options => { options.UseNpgsql(connectionString); });
+        // builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+        //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
         // Add services to the container.
 
         builder.Services.AddControllers();
@@ -39,8 +40,8 @@ public class Program
         app.UseCors();
 
         app.MapControllerRoute(
-            name : "areas",
-            pattern : "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+            "areas",
+            "{area:exists}/{controller=Home}/{action=Index}/{id?}"
         );
 
         app.Run();

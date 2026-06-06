@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace SalesTrack.Api.Areas.PublicArea.Controllers;
+
 [Area("PublicArea")]
 [DisplayName("Public Controller")]
 [Route("api/[area]/[controller]")]
