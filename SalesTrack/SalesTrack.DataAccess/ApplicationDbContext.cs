@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SalesTrack.Model.Identity;
+using SalesTrack.Model.IdentityModels;
 
 namespace SalesTrack.DataAccess;
 

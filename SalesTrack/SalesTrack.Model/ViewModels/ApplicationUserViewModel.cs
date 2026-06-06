@@ -1,11 +1,8 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
 using SalesTrack.Model.Enums;
 
-namespace SalesTrack.Model.Identity;
+namespace SalesTrack.Model.ViewModels;
 
-// Add profile data for application users by adding properties to the ApplicationUser class
-public class ApplicationUser : IdentityUser
+public class ApplicationUserViewModel
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -15,7 +12,4 @@ public class ApplicationUser : IdentityUser
     public bool Activity { get; set; }
     public short? VerificationCode { get; set; }
     public string? ImageName { get; set; }
-    
-    [NotMapped]
-    public string? FullName => $"{FirstName} {LastName}";
 }

@@ -12,5 +12,8 @@
     <ItemGroup>
         <ProjectReference Include="..\SalesTrack.Utility\SalesTrack.Utility.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Identity\" />
+    </ItemGroup>
 
 </Project>

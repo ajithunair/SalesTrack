@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SalesTrack.DataAccess;
+using SalesTrack.Service;
+using SalesTrack.Service.IService;
 
 namespace SalesTrack.Api;
 
@@ -23,7 +25,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
-        builder.Services.AddCors();
+        builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
         var app = builder.Build();
 
