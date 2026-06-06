@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SalesTrack.Api.Areas.Identity.Data;
+using SalesTrack.Model.Identity;
 
-namespace SalesTrack.Api.Areas.Identity.Data;
+namespace SalesTrack.DataAccess;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {

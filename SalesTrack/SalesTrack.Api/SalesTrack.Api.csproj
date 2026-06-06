@@ -17,4 +17,8 @@
       <ProjectReference Include="..\SalesTrack.Service\SalesTrack.Service.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Areas\Identity\Data\" />
+    </ItemGroup>
+
 </Project>
